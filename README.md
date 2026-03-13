@@ -60,9 +60,11 @@ _Once configured, the `xiaomi_clock_lywsd02.set_time` Action becomes available._
 Go to **Developer Tools** -> **Actions** and search for `xiaomi_clock_lywsd02.set_time`.
 
 ### UI Mode
+<img width="1306" height="1103" alt="image" src="https://github.com/user-attachments/assets/d9e9c7e6-eda2-4c23-9f36-36aa5c1eeab6" />
+
 The action is fully supported by the Home Assistant UI. You can seamlessly configure:
 - **Xiaomi BLE Devices**: Select instances of your clock discovered by the `xiaomi_ble` integration.
-- **Custom MAC Addresses**: Manually type MAC addresses for clocks outside the UI integration (e.g. `['A4:C1:38:62:F8:BA']`).
+- **Custom MAC Addresses**: Manually type MAC addresses for clocks outside the UI integration (e.g. `['A4:C1:XX:XX:XX:XX']`).
 - **Timezone Offset**: Shift the time mathematically (e.g. `9`).
 - **Temperature Unit**: `Celsius` / `Fahrenheit`.
 - **Clock Format**: `12-hour AM/PM` / `24-hour`.
