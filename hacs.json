@@ -1,0 +1,5 @@
+{
+  "name": "Xiaomi clock time fixer",
+  "hacs": "1.19.0",
+  "render_readme": true
+}
