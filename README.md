@@ -67,7 +67,7 @@ The action is fully supported by the Home Assistant UI. You can seamlessly confi
 - **Custom MAC Addresses**: Manually type MAC addresses for clocks outside the UI integration (e.g. `['A4:C1:XX:XX:XX:XX']`).
 - **Timezone Offset**: Shift the time mathematically (e.g. `9`).
 - **Temperature Unit**: `Celsius` / `Fahrenheit`.
-- **Clock Format**: `12-hour AM/PM` / `24-hour`.
+- **Clock Format**: `12-hour` / `24-hour`.
 
 ### YAML Mode Example
 You can easily use this integration in your Automations or Scripts. For example, automatically update your clocks every day at 3 AM:
