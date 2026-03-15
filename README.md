@@ -30,13 +30,8 @@ Before using this integration, ensure your Home Assistant server has Bluetooth c
 ## Installation
 
 ### Method 1: HACS (Recommended)
-1. Open Home Assistant and navigate to **HACS**.
-2. Click on **Integrations**.
-3. Click the three dots (⋮) in the top right corner and select **Custom repositories**.
-4. Paste the URL of this repository.
-5. Select category **Integration** and click **ADD**.
-6. Close the modal, search for **Xiaomi LYWSD02 Time Fixer**, and install it.
-7. Restart Home Assistant.
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=kkqq9320&repository=ha-xiaomi-clock-time-fixer&category=integration)
+1. Restart Home Assistant.
 
 ### Method 2: Manual Installation
 1. Download the latest release from this repository.
