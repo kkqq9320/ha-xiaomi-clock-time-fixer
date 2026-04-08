@@ -1,8 +1,8 @@
 {
   "domain": "xiaomi_clock_lywsd02",
   "name": "Xiaomi Clock Time Fixer",
-  "version": "1.0.0",
-  "documentation": "https://github.com/kkqq9320/ha-xiaomi-clock-time-fixer",
+  "version": "1.1.0",
+  "documentation": "https://github.com/kkqq9320/ha-xiaomi-clock-time-fixer/blob/main/README.md",
   "dependencies": [
     "bluetooth"
   ],
