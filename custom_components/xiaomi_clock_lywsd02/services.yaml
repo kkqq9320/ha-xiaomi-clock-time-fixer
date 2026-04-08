@@ -1,0 +1,77 @@
+set_time:
+  name: Set Time
+  description: Update the time, timezone, clock format, and temperature display settings of a Xiaomi LYWSD02 clock.
+  fields:
+    devices:
+      name: Xiaomi BLE Devices
+      description: Select Xiaomi LYWSD02 / LYWSD02MMC devices already integrated via the xiaomi_ble integration.
+      required: false
+      selector:
+        device:
+          multiple: true
+          filter:
+            - integration: xiaomi_ble
+              model: LYWSD02MMC
+            - integration: xiaomi_ble
+              model: LYWSD02
+    custom_macs:
+      name: Custom MAC Addresses
+      description: >
+        For devices not in xiaomi_ble (e.g. ESPHome proxies). 
+        
+        Enter as a list of strings, 
+        
+        e.g. ["AA:BB:CC:DD:EE:FF"].
+      required: false
+      example: '["AA:BB:CC:DD:EE:FF"]'
+      selector:
+        object:
+    tz_offset:
+      name: Timezone Offset
+      description: Timezone offset in hours (e.g. 9 for KST). If omitted, automatically uses Home Assistant's configured timezone.
+      required: false
+      selector:
+        number:
+          min: -12
+          max: 14
+          step: 1
+    temp_mode:
+      name: Temperature Unit
+      description: Mode for temperature display (C for Celsius, F for Fahrenheit).
+      required: false
+      selector:
+        select:
+          options:
+            - label: Celsius (°C)
+              value: C
+            - label: Fahrenheit (°F)
+              value: F
+    clock_mode:
+      name: Clock Format
+      description: "Format for clock display (12-hour or 24-hour mode). Note: LYWSD02 does not support this setting — only LYWSD02MMC does."
+      required: false
+      selector:
+        select:
+          options:
+            - label: 12-hour
+              value: '12'
+            - label: 24-hour
+              value: '24'
+    timeout:
+      name: Connection Timeout
+      description: Allowed connection timeout in seconds.
+      default: 60
+      required: false
+      selector:
+        number:
+          min: 5
+          max: 120
+          unit_of_measurement: seconds
+    timestamp:
+      name: Custom Timestamp
+      description: Custom unix epoch timestamp (optional). If empty, dynamic current local time is used.
+      required: false
+      selector:
+        number:
+          min: 0
+          max: 4102444800

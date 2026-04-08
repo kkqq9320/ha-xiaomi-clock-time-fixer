@@ -1,0 +1,20 @@
+{
+  "domain": "xiaomi_clock_lywsd02",
+  "name": "Xiaomi Clock Time Fixer",
+  "version": "1.0.0",
+  "documentation": "https://github.com/kkqq9320/ha-xiaomi-clock-time-fixer",
+  "dependencies": [
+    "bluetooth"
+  ],
+  "requirements": [
+    "bleak>=0.19.0",
+    "bleak-retry-connector>=2.9.0",
+    "voluptuous"
+  ],
+  "codeowners": [
+    "@kkqq9320"
+  ],
+  "config_flow": true,
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/kkqq9320/ha-xiaomi-clock-time-fixer/issues"
+}

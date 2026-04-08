@@ -1,0 +1,13 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Xiaomi Clock Time Fixer",
+        "description": "Do you want to set up the Xiaomi clock time fixer integration?\nThis will register the 'set_time' action."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Already configured.\nOnly a single configuration is needed to use the service."
+    }
+  }
+}
