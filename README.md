@@ -1,7 +1,7 @@
 # Xiaomi Clock Time Fixer for Home Assistant
 
 ![HACS Valid](https://img.shields.io/badge/HACS-Custom-orange.svg)
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.1.1-blue.svg)
 
 
 
@@ -19,6 +19,7 @@ This integration solves common Bluetooth device communication errors (like the E
 - **Home Assistant Device Support**: Choose your clock directly from a UI dropdown if it's already integrated via the `xiaomi_ble` integration.
 - **Custom MAC Support**: If you use a standalone proxy or it's not registered in HA, manually input your MAC addresses.
 - **Device UI Configurations (C/F, 12h/24h)**: Effortlessly swap between Celsius/Fahrenheit and 12-hour/24-hour formats through the Service GUI. Note: clock format (12h/24h) is only supported on **LYWSD02MMC** — the original **LYWSD02 does not support this setting**.
+- **Configurable Connection Timeout**: Bound how long the integration waits for a clock to appear and respond. Defaults to `60` seconds, with a minimum of `10`.
 
 ## Prerequisites
 Before using this integration, ensure your Home Assistant server has Bluetooth connectivity to reach the LYWSD02 clocks.
@@ -63,6 +64,7 @@ The action is fully supported by the Home Assistant UI. You can seamlessly confi
 - **Timezone Offset**: Shift the time mathematically (e.g. `9`).
 - **Temperature Unit**: `Celsius` / `Fahrenheit`.
 - **Clock Format**: `12-hour` / `24-hour` (**LYWSD02MMC only** — not supported on LYWSD02).
+- **Connection Timeout**: How many seconds to spend locating and writing to each clock. Default `60`, minimum `10`. The timeout applies per clock, so a bulk update of three clocks can take up to three times this value.
 
 ### YAML Mode Example
 You can easily use this integration in your Automations or Scripts. For example, automatically update your clocks every day at 3 AM:
@@ -81,14 +83,17 @@ action:
       tz_offset: 9
       temp_mode: "C"
       clock_mode: "24"
+      timeout: 60
 ```
 
 ---
 
 ## Troubleshooting
 
-- **Error: "Failed to connect to device" / "Could not find MAC"**
-Ensure that the device is near your Home Assistant host (if using a local Bluetooth dongle) or within range of an active ESPHome Bluetooth Proxy. Wait a few seconds for an advertisement to be detected before firing the service again.
+- **Error: "Could not find `<MAC>` within N seconds"**
+The clock was not already known to Home Assistant, and no advertisement arrived before the timeout expired. The integration now actively scans and waits for one, so you no longer need to fire the action twice — instead, make sure the device is powered on and within range of your Bluetooth dongle or an active ESPHome Bluetooth Proxy. LYWSD02 clocks advertise infrequently, so raising `timeout` often resolves this on its own.
+- **Error: "Timed out after N seconds while communicating with `<MAC>`"**
+The clock was found, but the connection or GATT write did not finish in time. Raise the `timeout` option, move the clock closer to a proxy, or press a button on the clock to wake it before running the action.
 - **Error popping up in UI natively**
 The integration makes use of `HomeAssistantError` logic. If an update fails, verify the device is powered on and the MAC address syntax in the setup is cleanly specified without extra characters.
 
