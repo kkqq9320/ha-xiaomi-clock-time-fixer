@@ -1,7 +1,7 @@
 # Xiaomi Clock Time Fixer for Home Assistant
 
 ![HACS Valid](https://img.shields.io/badge/HACS-Custom-orange.svg)
-![Version](https://img.shields.io/badge/version-1.1.1-blue.svg)
+![Version](https://img.shields.io/badge/version-1.1.2-blue.svg)
 
 
 
