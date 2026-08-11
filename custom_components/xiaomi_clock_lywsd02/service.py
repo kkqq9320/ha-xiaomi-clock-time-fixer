@@ -6,10 +6,11 @@ import logging
 import struct
 
 from homeassistant.core import HomeAssistant, ServiceCall
-from homeassistant.exceptions import HomeAssistantError
+from homeassistant.exceptions import HomeAssistantError, ServiceValidationError
 from homeassistant.helpers import device_registry as dr
 
 from .ble_client import write_time_to_device
+from .const import DEFAULT_TIMEOUT, MIN_TIMEOUT
 from .helpers import get_localized_timestamp, get_tz_offset
 
 _LOGGER = logging.getLogger(__name__)
@@ -71,6 +72,18 @@ def _build_payloads(call: ServiceCall, timestamp: int, tz_offset: int):
     return data, data_temp_mode, data_clock_mode
 
 
+def _get_timeout(call: ServiceCall) -> float:
+    """Get and validate the connection timeout from service data."""
+    try:
+        timeout = float(call.data.get('timeout', DEFAULT_TIMEOUT))
+    except (TypeError, ValueError) as err:
+        raise ServiceValidationError("timeout must be a number of seconds") from err
+
+    if timeout < MIN_TIMEOUT:
+        raise ServiceValidationError(f"timeout must be at least {MIN_TIMEOUT} seconds")
+    return timeout
+
+
 async def handle_set_time(hass: HomeAssistant, call: ServiceCall) -> None:
     """Handle the set_time service call."""
     target_macs = _resolve_macs(hass, call)
@@ -89,13 +102,21 @@ async def handle_set_time(hass: HomeAssistant, call: ServiceCall) -> None:
     timestamp = get_localized_timestamp() if timestamp is None else int(timestamp)
 
     data, data_temp_mode, data_clock_mode = _build_payloads(call, timestamp, tz_offset)
+    timeout = _get_timeout(call)
 
     errors = []
     successes = 0
 
     for mac in macs:
         try:
-            await write_time_to_device(hass, mac, data, data_temp_mode, data_clock_mode)
+            await write_time_to_device(
+                hass,
+                mac,
+                data,
+                data_temp_mode,
+                data_clock_mode,
+                timeout=timeout,
+            )
             _LOGGER.info(f"Done - refreshed time on '{mac}' to '{timestamp}' with offset of '{tz_offset}' hours.")
             successes += 1
         except HomeAssistantError as e:
